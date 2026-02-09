@@ -7,8 +7,10 @@ import { useState, useEffect } from 'react'
 export default function Feelings() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [visibleMessages, setVisibleMessages] = useState<number[]>([])
+  const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
+    setIsClient(true)
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY })
     }
@@ -92,7 +94,7 @@ export default function Feelings() {
                   : 'opacity-0 pointer-events-none'
               } ${message.position}`}
               style={{
-                transform: `translate(${(mousePosition.x - window.innerWidth / 2) * 0.02}px, ${(mousePosition.y - window.innerHeight / 2) * 0.02}px)`,
+                transform: isClient ? `translate(${(mousePosition.x - window.innerWidth / 2) * 0.02}px, ${(mousePosition.y - window.innerHeight / 2) * 0.02}px)` : 'translate(0, 0)',
               }}
             >
               <div className="bg-white/90 backdrop-blur-sm rounded-2xl px-6 py-4 border-2 border-indigo-200/50 shadow-lg hover:shadow-2xl transition-all whitespace-nowrap">
